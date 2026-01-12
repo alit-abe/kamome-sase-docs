@@ -18,17 +18,56 @@ Kamome SASE製品の公式ドキュメントリポジトリです。
 
 ### 前提条件
 
+#### PDF生成の場合
+
+- Node.js（markdown-pdfの実行に必要）
+- markdown-pdf（npm経由でインストール）
+
+```bash
+# markdown-pdfのインストール
+npm install -g markdown-pdf
+```
+
+#### Web公開の場合（準備中）
+
 - MkDocs、Docusaurus、またはその他の静的サイトジェネレーター
 
 ### Markdownファイルの閲覧
 
 各ドキュメントはMarkdown形式で記述されています。GitHubで直接閲覧することも、ローカルでMarkdownビューアーを使用することもできます。
 
-### PDF生成（準備中）
+### PDF生成
+
+エージェントマニュアルのPDFを生成：
 
 ```bash
-# 準備中
+./scripts/generate-agent-pdf.sh
 ```
+
+生成されたPDFは `pdf/agent-installation-manual.pdf` に保存されます。
+
+#### スクリプトの機能
+
+`generate-agent-pdf.sh` は以下の処理を自動的に行います：
+
+- `docs/agent/installation.md` をPDFに変換
+- カスタムCSS（`docs/agent/pdf-style.css`）を適用してスタイリング
+- 一時ファイルの自動クリーンアップ（trapコマンドによる終了時処理）
+- 生成されたPDFのファイルサイズを表示
+
+#### 一時ファイルのクリーンアップ
+
+PDF生成時にエラーが発生して一時ファイルが残った場合は、以下のコマンドで手動クリーンアップできます：
+
+```bash
+./scripts/cleanup.sh
+```
+
+このスクリプトは以下の一時ファイルを削除します：
+- `tmpclaude-*` ファイル
+- `*.tmp` ファイル
+
+**注意**: 通常は `generate-agent-pdf.sh` が自動的にクリーンアップを行うため、手動実行は不要です。
 
 ### Web公開（準備中）
 

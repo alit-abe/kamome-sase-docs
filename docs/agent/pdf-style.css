@@ -1,0 +1,60 @@
+/* PDF生成用スタイル */
+
+/* 画像のサイズを50%に制限 */
+img {
+    max-width: 50%;
+    height: auto;
+    display: block;
+    margin: 1em 0;
+}
+
+/* ページ設定 */
+@page {
+    margin: 2cm;
+}
+
+/* 見出しのスタイル */
+h1 {
+    font-size: 24px;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+}
+
+h4 {
+    font-size: 16px;
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+}
+
+/* コードブロックのスタイル */
+code {
+    background-color: #f4f4f4;
+    padding: 2px 4px;
+    font-family: monospace;
+}
+
+/* 引用のスタイル */
+blockquote {
+    border-left: 4px solid #ccc;
+    padding-left: 1em;
+    margin-left: 0;
+    color: #666;
+}
+
+/* リストのスタイル */
+ul, ol {
+    margin: 0.5em 0;
+    padding-left: 2em;
+}

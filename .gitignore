@@ -1,0 +1,22 @@
+# 静的サイトジェネレーター出力
+site/
+pdf/
+
+# Node modules
+node_modules/
+
+# 一時ファイル
+tmpclaude-*
+*.tmp
+*.log
+
+# OS固有
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

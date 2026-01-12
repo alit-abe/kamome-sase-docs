@@ -111,8 +111,9 @@ kamome-sase-docs/
 │   └── auth-server-manual.pdf
 │
 ├── scripts/                               # ビルドスクリプト
-│   ├── build-pdf.sh                       # PDF生成スクリプト
-│   └── build-web.sh                       # Web生成スクリプト
+│   ├── generate-agent-pdf.sh              # エージェントマニュアルPDF生成
+│   ├── cleanup.sh                         # 一時ファイルクリーンアップ
+│   └── (他のコンポーネント用スクリプトも追加予定)
 │
 ├── .gitignore
 └── package.json または requirements.txt   # 依存関係管理
@@ -217,25 +218,57 @@ markdown_extensions:
 
 ## PDF生成方法
 
-### 方法1: MkDocs + pdf-export plugin
+### 採用方法: markdown-pdf
+
+現在は `markdown-pdf` を使用してPDFを生成しています。
+
 ```bash
-pip install mkdocs-material
-pip install mkdocs-pdf-export-plugin
-mkdocs build
+# エージェントマニュアルのPDF生成
+./scripts/generate-agent-pdf.sh
 ```
 
-### 方法2: Pandoc
+生成されたPDFは `pdf/agent-installation-manual.pdf` に保存されます。
+
+#### スクリプトの仕組み
+
+`scripts/generate-agent-pdf.sh` は以下の処理を行います：
+1. 一時ファイルの自動クリーンアップ（trapコマンド使用）
+2. markdown-pdfを使用してMarkdownからPDF生成
+3. カスタムCSS（`docs/agent/pdf-style.css`）を適用
+
+#### 前提条件
+
+```bash
+# markdown-pdfのインストール（初回のみ）
+npm install -g markdown-pdf
+```
+
+### 代替方法（参考）
+
+#### Pandoc を使用する場合
 ```bash
 # 各マニュアルを個別にPDF化
 pandoc docs/agent/*.md -o pdf/agent-manual.pdf --toc
 pandoc docs/connector/*.md -o pdf/connector-manual.pdf --toc
 ```
 
-### 方法3: md-to-pdf
+#### MkDocs + pdf-export plugin を使用する場合
 ```bash
-npm install -g md-to-pdf
-md-to-pdf docs/agent/*.md --output pdf/agent-manual.pdf
+pip install mkdocs-material
+pip install mkdocs-pdf-export-plugin
+mkdocs build
 ```
+
+### 一時ファイルのクリーンアップ
+
+PDF生成時に生成される一時ファイル（`tmpclaude-*`, `*.tmp`）をクリーンアップするスクリプトを提供しています。
+
+```bash
+# 一時ファイルをクリーンアップ
+./scripts/cleanup.sh
+```
+
+**注意**: `generate-agent-pdf.sh` は自動的にクリーンアップを行うため、通常は手動でこのスクリプトを実行する必要はありません。エラーでスクリプトが中断された場合など、一時ファイルが残った場合に使用してください。
 
 ## Web公開方法
 
@@ -275,7 +308,8 @@ npm run build
 
 ### 優先度：中
 - [ ] マニュアルテンプレートの作成（共通フォーマット）
-- [ ] PDF生成スクリプトの作成（scripts/build-pdf.sh）
+- [x] PDF生成スクリプトの作成（scripts/generate-agent-pdf.sh）
+- [ ] 他のコンポーネント用PDF生成スクリプトの作成
 - [ ] Web生成スクリプトの作成（scripts/build-web.sh）
 - [ ] CI/CD設定（GitHub Actions等）- 自動ビルド・デプロイ
 - [ ] バージョン管理戦略の策定
