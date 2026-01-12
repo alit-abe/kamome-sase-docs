@@ -317,3 +317,7 @@ npm run build
 - Markdown形式で管理し、PDF出力とHTML出力の両対応
 - 画像は各マニュアルごとに管理し、共通画像はassetsに配置
 - 将来的にはWeb公開を想定した構造
+
+---
+
+© 2026 かもめエンジニアリング株式会社. All rights reserved.
